@@ -1,7 +1,7 @@
 // main.js
 "use strict";
 
-const port = 3000,
+const port = 3001,
   express = require("express"),
   layouts = require("express-ejs-layouts"),
   homeController = require("./controllers/homeController"),
@@ -18,7 +18,7 @@ const mongoose = require("mongoose"); // Mongoose 모듈의 요청
 mongoose.Promise = global.Promise; // 필요 없을 것 같은데?
 
 mongoose.connect(
-  "mongodb://localhost:27017/recipe_db", // 데이터베이스 연결 설정
+  "mongodb+srv://dbtjdqkr12:dbtjd960713!@ut-node.9pkr7pn.mongodb.net/?retryWrites=true&w=majority&appName=UT-Node/ut-node", // Atlas 경로
   { useNewUrlParser: true }
 );
 
@@ -57,20 +57,20 @@ app.get("/name/:myName", homeController.respondWithName2);
  * @TODO: Listing 15.2 (p. 216)
  * 구독자 컨트롤러 사용
  */
-
+app.get("/subscribers", subscribersController.getAllSubscribers2);
 
 /**
  * @TODO: Listing 15.5 (p. 219-220)
  * 구독을 위한 라우트
  */
 // 구독 페이지를 위한 GET 라우트
-
+app.get("/subscribers", subscribersController.getSubscriptionPage);
 // 구독 데이터 처리를 위한 POST 라우트
-
+ 
 
 /**
  * Listing 11.4 (p. 169)
- * 사용자 정의 메시지를 통한 에러와 없는 라우트 처리
+ * 사용자 정의 메시지를 통한 에러와 없는 라우트 처리 
  */
 app.use(errorController.logErrors);
 app.use(errorController.resNotFound); // main.js에 에러 처리 미들웨어 추가
